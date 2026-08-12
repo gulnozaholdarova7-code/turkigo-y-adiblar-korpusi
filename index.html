@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turkigo‘y adiblar elektron korpusi</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f6f1e7;
+      color: #24352b;
+    }
+
+    header {
+      background: #173b2c;
+      color: #f8f1df;
+      padding: 22px 6%;
+      border-bottom: 4px solid #c59b45;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #d8c99d;
+      margin-top: 5px;
+    }
+
+    nav a {
+      color: #f8f1df;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 15px;
+    }
+
+    nav a:hover {
+      color: #e0b85b;
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 60px auto 40px;
+      padding: 0 6%;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      color: #173b2c;
+      margin-bottom: 16px;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      color: #657066;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .search {
+      max-width: 720px;
+      margin: 32px auto 0;
+      display: flex;
+      background: white;
+      border: 1px solid #d9cfbd;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(50, 40, 20, 0.08);
+    }
+
+    .search input {
+      flex: 1;
+      border: none;
+      padding: 18px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search button {
+      border: none;
+      background: #b28638;
+      color: white;
+      padding: 0 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: 55px auto;
+      padding: 0 6%;
+    }
+
+    .section-title {
+      text-align: center;
+      color: #173b2c;
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    .authors {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+
+    .author {
+      background: #fffdf8;
+      border: 1px solid #ded4c2;
+      border-radius: 12px;
+      padding: 25px 15px;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .author:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(50, 40, 20, 0.1);
+      border-color: #c59b45;
+    }
+
+    .portrait {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      background: #e8deca;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8b764b;
+      font-size: 28px;
+    }
+
+    .author h3 {
+      color: #173b2c;
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .author p {
+      color: #777;
+      font-size: 13px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 35px;
+    }
+
+    .stat {
+      background: #173b2c;
+      color: #f8f1df;
+      padding: 25px;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 30px;
+      color: #d8b15b;
+      margin-bottom: 5px;
+    }
+
+    footer {
+      margin-top: 70px;
+      background: #122e23;
+      color: #cfc5ad;
+      padding: 35px 6%;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 850px) {
+      .header-inner {
+        flex-direction: column;
+      }
+
+      nav a {
+        margin: 0 7px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .authors {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .authors,
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .search {
+        flex-direction: column;
+      }
+
+      .search button {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="logo">TURKIGO‘Y ADIBLAR</div>
+      <div class="subtitle">Elektron ilmiy korpus</div>
+    </div>
+
+    <nav>
+      <a href="#">Bosh sahifa</a>
+      <a href="#">Adiblar</a>
+      <a href="#">Asarlar</a>
+      <a href="#">Korpus</a>
+      <a href="#">Loyiha haqida</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+
+  <h1>Turkigo‘y adiblar<br>elektron korpusi</h1>
+
+  <p>
+    Turkiy mumtoz adabiyot namunalarini raqamli muhitda
+    jamlash, izlash va ilmiy tadqiq etish uchun yaratilayotgan
+    elektron korpus.
+  </p>
+
+  <div class="search">
+    <input
+      type="text"
+      placeholder="Adib, asar yoki so‘z bo‘yicha qidiring..."
+    >
+    <button>Qidirish</button>
+  </div>
+
+</section>
+
+<section class="section">
+
+  <h2 class="section-title">Korpusdagi adiblar</h2>
+
+  <div class="authors">
+
+    <div class="author">
+      <div class="portrait">L</div>
+      <h3>Lutfiy</h3>
+      <p>Devon</p>
+    </div>
+
+    <div class="author">
+      <div class="portrait">S</div>
+      <h3>Sakkokiy</h3>
+      <p>Devon</p>
+    </div>
+
+    <div class="author">
+      <div class="portrait">G</div>
+      <h3>Gadoiy</h3>
+      <p>Devon</p>
+    </div>
+
+    <div class="author">
+      <div class="portrait">H</div>
+      <h3>Hofiz Xorazmiy</h3>
+      <p>Devon</p>
+    </div>
+
+    <div class="author">
+      <div class="portrait">A</div>
+      <h3>Atoyi</h3>
+      <p>Devon</p>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <h2 class="section-title">Korpus statistikasi</h2>
+
+  <div class="stats">
+
+    <div class="stat">
+      <strong>5</strong>
+      Adib
+    </div>
+
+    <div class="stat">
+      <strong>5</strong>
+      Devon
+    </div>
+
+    <div class="stat">
+      <strong>0</strong>
+      Matn
+    </div>
+
+    <div class="stat">
+      <strong>0</strong>
+      So‘z
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  © 2026 Turkigo‘y adiblar elektron korpusi
+</footer>
+
+</body>
+</html>
