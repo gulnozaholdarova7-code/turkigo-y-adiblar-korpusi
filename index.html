@@ -462,6 +462,33 @@ footer p {
     padding: 13px;
   }
 }
+
+/* ===== KORPUS MEXANIZMI ===== */
+.results{max-width:1100px;margin:0 auto;padding:0 30px}
+.results h3{font-family:"Cormorant Garamond",serif;font-size:28px;color:var(--green);margin:30px 0 14px}
+.kwic{background:var(--paper);border:1px solid rgba(198,161,91,.35);border-radius:10px;padding:12px 16px;margin-bottom:10px;cursor:pointer}
+.kwic:hover{border-color:var(--gold)}
+.kwic .line{font-size:17px;line-height:1.6}
+.kwic mark{background:var(--gold-light);color:var(--dark);padding:0 2px;border-radius:3px}
+.kwic .ref{font-size:12px;color:var(--muted);margin-top:4px}
+.empty-note{color:var(--muted);font-style:italic;padding:10px 0 30px}
+.modal-bg{position:fixed;inset:0;background:rgba(9,37,28,.6);display:none;align-items:flex-start;justify-content:center;z-index:50;overflow-y:auto;padding:40px 16px}
+.modal-bg.open{display:flex}
+.modal{background:var(--paper);max-width:980px;width:100%;border-radius:14px;padding:28px 30px;position:relative}
+.modal h2{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--green);margin-bottom:6px}
+.modal .close{position:absolute;top:14px;right:18px;border:none;background:none;font-size:28px;cursor:pointer;color:var(--muted)}
+.glist button{display:block;width:100%;text-align:left;background:#fff;border:1px solid rgba(198,161,91,.35);border-radius:8px;padding:12px 14px;margin:8px 0;font-size:16px;cursor:pointer;font-family:inherit}
+.glist button:hover{border-color:var(--gold)}
+.meta{font-size:13px;color:var(--muted);margin:6px 0 18px;line-height:1.6}
+.bayt{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:12px 0;border-bottom:1px solid rgba(198,161,91,.25)}
+.bayt.one{grid-template-columns:1fr}
+.lugat{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.5}
+.bayt .no{grid-column:1/-1;font-size:12px;color:var(--gold)}
+.arab{direction:rtl;text-align:right;font-family:"Amiri","Noto Naskh Arabic","Times New Roman",serif;font-size:22px;line-height:1.8}
+.lotin{font-size:17px;line-height:1.8}
+.lotin.hl{background:rgba(225,201,141,.35);border-radius:6px}
+.back{background:none;border:none;color:var(--green);cursor:pointer;font-size:14px;margin-bottom:10px;text-decoration:underline}
+@media(max-width:700px){.bayt{grid-template-columns:1fr}.modal{padding:22px 18px}}
 </style>
 </head>
 
@@ -511,17 +538,20 @@ footer p {
     <div class="search-box">
 
       <input
+        id="q"
         type="text"
         placeholder="Adib, asar yoki so‘z bo‘yicha qidiring..."
       >
 
-      <button>QIDIRISH</button>
+      <button id="qbtn">QIDIRISH</button>
 
     </div>
 
   </div>
 
 </section>
+
+<section class="results" id="natijalar" hidden></section>
 
 <section class="section" id="adiblar">
 
@@ -540,36 +570,36 @@ footer p {
     <div class="author">
       <div class="initial">L</div>
       <h3>Lutfiy</h3>
-      <p>Devon</p>
-      <button>DEVONNI KO‘RISH</button>
+      <p class="cnt" data-adib="lutfiy">Devon</p>
+      <button data-adib="lutfiy">DEVONNI KO‘RISH</button>
     </div>
 
     <div class="author">
       <div class="initial">S</div>
       <h3>Sakkokiy</h3>
-      <p>Devon</p>
-      <button>DEVONNI KO‘RISH</button>
+      <p class="cnt" data-adib="sakkokiy">Devon</p>
+      <button data-adib="sakkokiy">DEVONNI KO‘RISH</button>
     </div>
 
     <div class="author">
       <div class="initial">G</div>
       <h3>Gadoiy</h3>
-      <p>Devon</p>
-      <button>DEVONNI KO‘RISH</button>
+      <p class="cnt" data-adib="gadoiy">Devon</p>
+      <button data-adib="gadoiy">DEVONNI KO‘RISH</button>
     </div>
 
     <div class="author">
       <div class="initial">H</div>
       <h3>Hofiz Xorazmiy</h3>
-      <p>Devon</p>
-      <button>DEVONNI KO‘RISH</button>
+      <p class="cnt" data-adib="xorazmiy">Devon</p>
+      <button data-adib="xorazmiy">DEVONNI KO‘RISH</button>
     </div>
 
     <div class="author">
       <div class="initial">A</div>
       <h3>Atoyi</h3>
-      <p>Devon</p>
-      <button>DEVONNI KO‘RISH</button>
+      <p class="cnt" data-adib="atoyi">Devon</p>
+      <button data-adib="atoyi">DEVONNI KO‘RISH</button>
     </div>
 
   </div>
@@ -591,12 +621,12 @@ footer p {
     </div>
 
     <div class="stat">
-      <strong>0</strong>
+      <strong id="st-matn">0</strong>
       <span>RAQAMLASHTIRILGAN MATN</span>
     </div>
 
     <div class="stat">
-      <strong>0</strong>
+      <strong id="st-soz">0</strong>
       <span>SO‘Z</span>
     </div>
 
@@ -627,355 +657,9 @@ footer p {
 
 </footer>
 
-</body>
-</html><!DOCTYPE html>
-<html lang="uz">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Turkigo‘y adiblar elektron korpusi</title>
+<div class="modal-bg" id="mbg"><div class="modal" id="modal"></div></div>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Georgia, "Times New Roman", serif;
-      background: #f6f1e7;
-      color: #24352b;
-    }
-
-    header {
-      background: #173b2c;
-      color: #f8f1df;
-      padding: 22px 6%;
-      border-bottom: 4px solid #c59b45;
-    }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .subtitle {
-      font-size: 13px;
-      color: #d8c99d;
-      margin-top: 5px;
-    }
-
-    nav a {
-      color: #f8f1df;
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 15px;
-    }
-
-    nav a:hover {
-      color: #e0b85b;
-    }
-
-    .hero {
-      max-width: 1200px;
-      margin: 60px auto 40px;
-      padding: 0 6%;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 42px;
-      line-height: 1.2;
-      color: #173b2c;
-      margin-bottom: 16px;
-    }
-
-    .hero p {
-      max-width: 700px;
-      margin: auto;
-      color: #657066;
-      font-size: 17px;
-      line-height: 1.7;
-    }
-
-    .search {
-      max-width: 720px;
-      margin: 32px auto 0;
-      display: flex;
-      background: white;
-      border: 1px solid #d9cfbd;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(50, 40, 20, 0.08);
-    }
-
-    .search input {
-      flex: 1;
-      border: none;
-      padding: 18px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    .search button {
-      border: none;
-      background: #b28638;
-      color: white;
-      padding: 0 25px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .section {
-      max-width: 1200px;
-      margin: 55px auto;
-      padding: 0 6%;
-    }
-
-    .section-title {
-      text-align: center;
-      color: #173b2c;
-      font-size: 28px;
-      margin-bottom: 30px;
-    }
-
-    .authors {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 18px;
-    }
-
-    .author {
-      background: #fffdf8;
-      border: 1px solid #ded4c2;
-      border-radius: 12px;
-      padding: 25px 15px;
-      text-align: center;
-      transition: 0.2s;
-    }
-
-    .author:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 25px rgba(50, 40, 20, 0.1);
-      border-color: #c59b45;
-    }
-
-    .portrait {
-      width: 85px;
-      height: 85px;
-      border-radius: 50%;
-      background: #e8deca;
-      margin: 0 auto 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #8b764b;
-      font-size: 28px;
-    }
-
-    .author h3 {
-      color: #173b2c;
-      font-size: 19px;
-      margin-bottom: 8px;
-    }
-
-    .author p {
-      color: #777;
-      font-size: 13px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-top: 35px;
-    }
-
-    .stat {
-      background: #173b2c;
-      color: #f8f1df;
-      padding: 25px;
-      text-align: center;
-      border-radius: 10px;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 30px;
-      color: #d8b15b;
-      margin-bottom: 5px;
-    }
-
-    footer {
-      margin-top: 70px;
-      background: #122e23;
-      color: #cfc5ad;
-      padding: 35px 6%;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    @media (max-width: 850px) {
-      .header-inner {
-        flex-direction: column;
-      }
-
-      nav a {
-        margin: 0 7px;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .authors {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 500px) {
-      .authors,
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .search {
-        flex-direction: column;
-      }
-
-      .search button {
-        padding: 15px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-<header>
-  <div class="header-inner">
-    <div>
-      <div class="logo">TURKIGO‘Y ADIBLAR</div>
-      <div class="subtitle">Elektron ilmiy korpus</div>
-    </div>
-
-    <nav>
-      <a href="#">Bosh sahifa</a>
-      <a href="#">Adiblar</a>
-      <a href="#">Asarlar</a>
-      <a href="#">Korpus</a>
-      <a href="#">Loyiha haqida</a>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-
-  <h1>Turkigo‘y adiblar<br>elektron korpusi</h1>
-
-  <p>
-    Turkiy mumtoz adabiyot namunalarini raqamli muhitda
-    jamlash, izlash va ilmiy tadqiq etish uchun yaratilayotgan
-    elektron korpus.
-  </p>
-
-  <div class="search">
-    <input
-      type="text"
-      placeholder="Adib, asar yoki so‘z bo‘yicha qidiring..."
-    >
-    <button>Qidirish</button>
-  </div>
-
-</section>
-
-<section class="section">
-
-  <h2 class="section-title">Korpusdagi adiblar</h2>
-
-  <div class="authors">
-
-    <div class="author">
-      <div class="portrait">L</div>
-      <h3>Lutfiy</h3>
-      <p>Devon</p>
-    </div>
-
-    <div class="author">
-      <div class="portrait">S</div>
-      <h3>Sakkokiy</h3>
-      <p>Devon</p>
-    </div>
-
-    <div class="author">
-      <div class="portrait">G</div>
-      <h3>Gadoiy</h3>
-      <p>Devon</p>
-    </div>
-
-    <div class="author">
-      <div class="portrait">H</div>
-      <h3>Hofiz Xorazmiy</h3>
-      <p>Devon</p>
-    </div>
-
-    <div class="author">
-      <div class="portrait">A</div>
-      <h3>Atoyi</h3>
-      <p>Devon</p>
-    </div>
-
-  </div>
-
-</section>
-
-<section class="section">
-
-  <h2 class="section-title">Korpus statistikasi</h2>
-
-  <div class="stats">
-
-    <div class="stat">
-      <strong>5</strong>
-      Adib
-    </div>
-
-    <div class="stat">
-      <strong>5</strong>
-      Devon
-    </div>
-
-    <div class="stat">
-      <strong>0</strong>
-      Matn
-    </div>
-
-    <div class="stat">
-      <strong>0</strong>
-      So‘z
-    </div>
-
-  </div>
-
-</section>
-
-<footer>
-  © 2026 Turkigo‘y adiblar elektron korpusi
-</footer>
-
+<script src="korpus-data.js"></script>
+<script src="korpus.js"></script>
 </body>
 </html>
