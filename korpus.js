@@ -25,6 +25,20 @@
     p.textContent = n ? `Devon · ${n} ta matn` : "Devon · matn yuklanmoqda";
   });
 
+
+  // Adib rasmlari: rasm/<adib>.jpg mavjud boʻlsa, harf oʻrniga qoʻyiladi
+  document.querySelectorAll(".author").forEach(card => {
+    const p = card.querySelector(".cnt[data-adib]");
+    const box = card.querySelector(".initial");
+    if (!p || !box) return;
+    const key = p.dataset.adib;
+    const harf = box.textContent;
+    const img = new Image();
+    img.alt = ADIBLAR[key] || key;
+    img.onload = () => { box.textContent = ""; box.appendChild(img); };
+    img.onerror = () => { box.textContent = harf; };
+    img.src = "rasm/" + key + ".jpg";
+  });
   // Modal
   const mbg = $("mbg"), modal = $("modal");
   const yop = () => mbg.classList.remove("open");
